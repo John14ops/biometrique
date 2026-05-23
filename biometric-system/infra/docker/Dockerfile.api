@@ -1,0 +1,32 @@
+# ============================================================
+# Dockerfile — API Gateway + AI Core
+# ============================================================
+FROM python:3.11-slim
+
+# Dépendances système pour OpenCV + InsightFace
+RUN apt-get update && apt-get install -y \
+    libglib2.0-0 libsm6 libxext6 libxrender-dev \
+    libgomp1 libgl1-mesa-glx \
+    curl build-essential \
+    tesseract-ocr tesseract-ocr-fra \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copier requirements en premier (cache Docker)
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copier le code
+COPY services/api-gateway/ /app/
+COPY services/ai-core/ /app/ai_core/
+
+# Créer dossier modèles
+RUN mkdir -p /app/models
+
+ENV PYTHONPATH=/app:/app/ai_core
+ENV PYTHONUNBUFFERED=1
+
+EXPOSE 8000
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
