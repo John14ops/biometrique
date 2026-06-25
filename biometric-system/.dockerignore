@@ -1,6 +1,6 @@
 # ============================================================
 # .dockerignore — exclut tout ce qui ne doit PAS aller dans l'image API
-# Crucial pour Fly.io : upload context ~50MB au lieu de 500MB+
+# Crucial pour Railway : upload context ~50MB au lieu de 500MB+
 # ============================================================
 
 # Frontend (déployé séparément sur Vercel)
@@ -74,6 +74,3 @@ infra/nginx/
 
 # Migrations SQL (s'exécutent sur Supabase, pas dans le container)
 supabase/
-
-# Fly state
-.fly/

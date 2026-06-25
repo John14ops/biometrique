@@ -16,8 +16,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 
 # Copier requirements en premier (cache Docker)
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# NOTE: requirements-minimal.txt exclut resemblyzer/easyocr/librosa (Phase 6 voice/affect,
+# ~2Go de deps PyTorch) pour fiabiliser le build. Les endpoints /voice et /affect
+# retourneront 500 jusqu'à passage sur requirements.txt complet.
+COPY requirements-minimal.txt .
+RUN pip install --no-cache-dir -r requirements-minimal.txt
 
 # Copier le code
 COPY services/api-gateway/ /app/

@@ -1,0 +1,41 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.coverage
+
+# Node / frontend
+node_modules/
+dist/
+.vite/
+
+# ML models téléchargés à l'exécution
+ml_models/*.onnx
+ml_models/*.zip
+ml_models/buffalo_l/
+
+# Data / logs locaux
+data/
+logs/
+*.log
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
