@@ -21,6 +21,7 @@ env/
 node_modules/
 dist/
 .vite/
+*.tsbuildinfo
 
 # ML models téléchargés à l'exécution
 ml_models/*.onnx
